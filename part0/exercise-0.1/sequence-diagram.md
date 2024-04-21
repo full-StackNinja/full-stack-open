@@ -1,4 +1,4 @@
-::: mermaid
+```mermaid
 sequenceDiagram
 participant b as Browser
 participant s as Server
@@ -26,4 +26,4 @@ s->>b: [ { "content": "hello world!", "date": "2024-04-21T06:54:28.171Z"}, ...]
 deactivate s
 Note right of b: the browser renders notes data as HTML by executing event handler
 
-::: mermaid
+```
