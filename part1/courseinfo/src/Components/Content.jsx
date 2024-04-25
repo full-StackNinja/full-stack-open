@@ -8,7 +8,6 @@ const Part1 = (props) => {
       </p>
    );
 };
-
 const Part2 = (props) => {
    return (
       <p>
@@ -29,9 +28,9 @@ const Content = (props) => {
   
    return (
       <>
-         <Part1 part={props.parts[0]} />
-         <Part2 part={props.parts[1]} />
-         <Part3 part={props.parts[2]} />
+         <Part1 part={props.course.parts[0]} />
+         <Part2 part={props.course.parts[1]} />
+         <Part3 part={props.course.parts[2]} />
       </>
    );
 };
