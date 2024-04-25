@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-const Total = ({ total }) => {
+const Total = (props) => {
    return (
       <p>
          Number of exercises{" "}
-         {total.exercises1 + total.exercises2 + total.exercises3}
+         {props.exercises1 + props.exercises2 + props.exercises3}
       </p>
    );
 };
