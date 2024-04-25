@@ -3,7 +3,7 @@
 const Part1 = (props) => {
    return (
       <p>
-         {props.part1} {props.exercises1}
+         {props.part} {props.exercises}
       </p>
    );
 };
@@ -11,7 +11,7 @@ const Part1 = (props) => {
 const Part2 = (props) => {
    return (
       <p>
-         {props.part2} {props.exercises2}
+         {props.part} {props.exercises}
       </p>
    );
 };
@@ -19,7 +19,7 @@ const Part2 = (props) => {
 const Part3 = (props) => {
    return (
       <p>
-         {props.part3} {props.exercises3}
+         {props.part} {props.exercises}
       </p>
    );
 };
@@ -27,9 +27,18 @@ const Part3 = (props) => {
 const Content = (props) => {
    return (
       <>
-      <Part1 part1={props.part1} exercises1 = {props.exercises1}/>
-      <Part2 part2={props.part2} exercises2 = {props.exercises2}/>
-      <Part3 part3={props.part3} exercises3 = {props.exercises3}/>
+         <Part1
+            part={props.part1.name}
+            exercises={props.part1.exercises}
+         />
+         <Part2
+            part={props.part2.name}
+            exercises={props.part2.exercises}
+         />
+         <Part3
+            part={props.part3.name}
+            exercises={props.part3.exercises}
+         />
       </>
    );
 };
