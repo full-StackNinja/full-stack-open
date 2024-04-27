@@ -13,6 +13,7 @@ const App = () => {
    ];
 
    const [selected, setSelected] = useState(0);
+   const [votes, setVotes] = useState(new Array(8).fill(0));
 
    const handleSelection = () => {
       const quotesLength = anecdotes.length;
@@ -23,6 +24,15 @@ const App = () => {
    return (
       <div>
          <p>{anecdotes[selected]}</p>
+         <button
+            onClick={() => {
+               const updatedVotes = [...votes];
+               updatedVotes[selected] += 1;
+               setVotes(updatedVotes);
+            }}
+         >
+            vote
+         </button>
          <button onClick={handleSelection}>New anecdote</button>
       </div>
    );
