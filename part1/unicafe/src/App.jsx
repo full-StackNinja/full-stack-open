@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Header from "./Header";
-import Content from "./Content";
+import Stats from "./Stats";
 
 const App = () => {
    const good = 0;
@@ -20,7 +20,7 @@ const App = () => {
    const handleGoodBtnClick = () => {
       const newStats = { ...stats, all: stats.all + 1, good: stats.good + 1 };
       newStats.average = (newStats.good - newStats.bad) / newStats.all;
-      newStats.positiveFeedback = newStats.good / newStats.all * 100;
+      newStats.positiveFeedback = (newStats.good / newStats.all) * 100;
       setStats(newStats);
    };
    const handleNeutralBtnClick = () => {
@@ -42,7 +42,7 @@ const App = () => {
             handleNeutralBtnClick={handleNeutralBtnClick}
             handleBadBtnClick={handleBadBtnClick}
          />
-         <Content stats={stats} />
+         <Stats stats={stats} />
       </>
    );
 };
