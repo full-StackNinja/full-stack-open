@@ -59,36 +59,7 @@ const App = () => {
             handleBtnClick={handleBadBtnClick}
          />
          <h2>Statistics</h2>
-         {stats.all === 0 ? (
-            <p>No feedbad given</p>
-         ) : (
-            <>
-               <Stats
-                  name="good"
-                  score={stats.good}
-               />
-               <Stats
-                  name="neutral"
-                  score={stats.neutral}
-               />
-               <Stats
-                  name="bad"
-                  score={stats.bad}
-               />
-               <Stats
-                  name="all"
-                  score={stats.all}
-               />
-               <Stats
-                  name="average"
-                  score={stats.average}
-               />
-               <Stats
-                  name="positive"
-                  score={stats.positiveFeedback}
-               />
-            </>
-         )}
+         {stats.all === 0 ? <p>No feedbad given</p> : <Stats stats={stats} />}
       </>
    );
 };
