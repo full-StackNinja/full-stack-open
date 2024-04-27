@@ -14,12 +14,26 @@ const App = () => {
 
    const [selected, setSelected] = useState(0);
    const [votes, setVotes] = useState(new Array(8).fill(0));
+   const maxVotes = { votes: 0, quote: anecdotes[0] };
 
    const handleSelection = () => {
       const quotesLength = anecdotes.length;
       const index = Math.floor(Math.random() * quotesLength);
       setSelected(index);
    };
+   const findMax = () => {
+      let max = -Infinity;
+      let index = 0;
+      for (let i = 0; i < votes.length; i++) {
+         if (votes[i] > max) {
+            max = votes[i];
+            index = i;
+         }
+      }
+      maxVotes.votes = max;
+      maxVotes.quote = anecdotes[index];
+   };
+   findMax();
 
    return (
       <div>
@@ -35,6 +49,9 @@ const App = () => {
             vote
          </button>
          <button onClick={handleSelection}>New anecdote</button>
+         <h2>Anecdote with most votes</h2>
+         <p>{maxVotes.quote}</p>
+         <p>has {maxVotes.votes} votes</p>
       </div>
    );
 };
