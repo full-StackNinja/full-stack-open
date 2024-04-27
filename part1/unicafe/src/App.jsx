@@ -2,6 +2,10 @@ import { useState } from "react";
 import Header from "./Header";
 import Stats from "./Stats";
 
+const Button = ({ text, handleBtnClick }) => {
+   return <button onClick={handleBtnClick}>{text}</button>;
+};
+
 const App = () => {
    const good = 0;
    const bad = 0;
@@ -24,7 +28,11 @@ const App = () => {
       setStats(newStats);
    };
    const handleNeutralBtnClick = () => {
-      const newStats = { ...stats, all: stats.all + 1 };
+      const newStats = {
+         ...stats,
+         all: stats.all + 1,
+         neutral: stats.neutral + 1,
+      };
       newStats.average = (newStats.good - newStats.bad) / newStats.all;
       newStats.positiveFeedback = newStats.good / newStats.all;
       setStats(newStats);
@@ -37,12 +45,50 @@ const App = () => {
    };
    return (
       <>
-         <Header
-            handleGoodBtnClick={handleGoodBtnClick}
-            handleNeutralBtnClick={handleNeutralBtnClick}
-            handleBadBtnClick={handleBadBtnClick}
+         <Header />
+         <Button
+            text="good"
+            handleBtnClick={handleGoodBtnClick}
          />
-         <Stats stats={stats} />
+         <Button
+            text="neutral"
+            handleBtnClick={handleNeutralBtnClick}
+         />
+         <Button
+            text="bad"
+            handleBtnClick={handleBadBtnClick}
+         />
+         <h2>Statistics</h2>
+         {stats.all === 0 ? (
+            <p>No feedbad given</p>
+         ) : (
+            <>
+               <Stats
+                  name="good"
+                  score={stats.good}
+               />
+               <Stats
+                  name="neutral"
+                  score={stats.neutral}
+               />
+               <Stats
+                  name="bad"
+                  score={stats.bad}
+               />
+               <Stats
+                  name="all"
+                  score={stats.all}
+               />
+               <Stats
+                  name="average"
+                  score={stats.average}
+               />
+               <Stats
+                  name="positive"
+                  score={stats.positiveFeedback}
+               />
+            </>
+         )}
       </>
    );
 };
