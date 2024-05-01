@@ -1,2 +1,3 @@
 # full-stack-open
-Single repo for multiple exercises of the FullStackOpen course.
+
+Multiple repos in single directory for the fullstackopen course.
