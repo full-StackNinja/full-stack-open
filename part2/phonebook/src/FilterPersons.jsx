@@ -1,5 +1,5 @@
-const FilterPersons = ({ persons, keyword }) => {
-   const filteredPersons = persons.filter((person) => {
+const FilterPersons = ({ persons, keyword, deletePerson }) => {
+   let filteredPersons = persons.filter((person) => {
       if (keyword) return person.name.includes(keyword);
       return true;
    });
@@ -7,9 +7,18 @@ const FilterPersons = ({ persons, keyword }) => {
    return (
       <ul>
          {filteredPersons.map((person) => (
-            <li key={person.id}>
-               {person.name} {person.phone}
-            </li>
+            <div key={person.id}>
+               <span>
+                  {person.name} {person.phone}
+               </span>{" "}
+               <button
+                  onClick={() => {
+                     deletePerson(person);
+                  }}
+               >
+                  delete
+               </button>
+            </div>
          ))}
       </ul>
    );

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import axios from "axios";
+import personService from "./services/persons";
 
 import FilterPersons from "./FilterPersons";
 import AddPerson from "./AddPerson";
@@ -13,7 +13,7 @@ const App = () => {
    const [keyword, setKeyword] = useState("");
 
    useEffect(() => {
-      axios.get("http://localhost:3000/persons").then((response) => {
+      personService.getAll().then((response) => {
          setPersons(response.data);
       });
    }, []);
@@ -22,16 +22,62 @@ const App = () => {
       e.preventDefault();
       const personList = [...persons];
       const person = personList.filter((person) => person.name === newName);
-      if (person.length)
-         return alert(`${person[0].name} is already added to the phonebook!}`);
-      personList.push({
+      const newPerson = {
          name: newName,
          phone: newPhone,
-         id: persons.length + 1,
-      });
-      setPersons(personList);
+      };
+      if (person.length) {
+         if (
+            window.confirm(
+               `${person[0].name} already exist in the database. Want to update old phone with new one?`,
+            )
+         ) {
+            // assign old id of the existing person
+            newPerson.id = person[0].id;
+            personService
+               .updatePerson(person[0].id, newPerson)
+               .then((response) => {
+                  const updatedPerson = response.data;
+                  // update person in persons state variable
+                  const updatedPersons = persons.map((person) => {
+                     if (person.id === updatedPerson.id) return updatedPerson;
+                     return person;
+                  });
+                  // console.log("🚀 ~ updatedPersons ~ updatedPersons:", updatedPersons)
+                  
+                  setPersons(updatedPersons);
+               });
+         }
+      } else {
+         personService
+            .addPerson(newPerson)
+            .then((response) => {
+               setPersons(personList.concat(response.data));
+            })
+            .catch((err) => {
+               throw new Error(err);
+            });
+      }
+
       setNewName("");
       setNewPhone("");
+   };
+
+   const deletePerson = (person) => {
+      personService
+         .deletePerson(person)
+         .then((response) => {
+            const deletedPerson = response.data;
+
+            // update persons state variable
+            const updatedPersons = persons.filter(
+               (person) => person.id !== deletedPerson.id,
+            );
+            setPersons(updatedPersons);
+         })
+         .catch((err) => {
+            throw new Error(err);
+         });
    };
 
    return (
@@ -53,6 +99,7 @@ const App = () => {
          <FilterPersons
             keyword={keyword}
             persons={persons}
+            deletePerson={deletePerson}
          />
       </div>
    );
