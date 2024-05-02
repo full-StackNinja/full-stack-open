@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import personService from "./services/persons";
 
 import FilterPersons from "./FilterPersons";
+import Message from "./Message";
 import AddPerson from "./AddPerson";
 import SearchField from "./SearchField";
 
@@ -11,6 +12,8 @@ const App = () => {
    const [newName, setNewName] = useState("");
    const [newPhone, setNewPhone] = useState("");
    const [keyword, setKeyword] = useState("");
+   const [message, setMessage] = useState("");
+   const [status, setStatus] = useState("success");
 
    useEffect(() => {
       personService.getAll().then((response) => {
@@ -43,9 +46,21 @@ const App = () => {
                      if (person.id === updatedPerson.id) return updatedPerson;
                      return person;
                   });
-                  // console.log("🚀 ~ updatedPersons ~ updatedPersons:", updatedPersons)
-                  
+
                   setPersons(updatedPersons);
+                  setMessage(`Updated phone number of ${updatedPerson.name}`);
+                  setTimeout(() => {
+                     setMessage("");
+                  }, 3000);
+               })
+               .catch(() => {
+                  setStatus("failure");
+                  setMessage(
+                     `person ${newPerson.name} has already been deleted`,
+                  );
+                  setTimeout(() => {
+                     setMessage("");
+                  }, 3000);
                });
          }
       } else {
@@ -53,6 +68,12 @@ const App = () => {
             .addPerson(newPerson)
             .then((response) => {
                setPersons(personList.concat(response.data));
+               setStatus("success");
+               setMessage(`Added new Person ${newPerson.name} to the database`);
+
+               setTimeout(() => {
+                  setMessage("");
+               }, 3000);
             })
             .catch((err) => {
                throw new Error(err);
@@ -83,6 +104,10 @@ const App = () => {
    return (
       <div>
          <h2>Phonebook</h2>
+         <Message
+            message={message}
+            status={status}
+         />
          <SearchField
             keyword={keyword}
             setKeyword={setKeyword}
