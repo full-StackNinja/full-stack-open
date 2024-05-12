@@ -9,7 +9,7 @@ const FilterPersons = ({ persons, keyword, deletePerson }) => {
          {filteredPersons.map((person) => (
             <div key={person.id}>
                <span>
-                  {person.name} {person.phone}
+                  {person.name} {person.number}
                </span>{" "}
                <button
                   onClick={() => {
