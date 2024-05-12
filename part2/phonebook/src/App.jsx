@@ -27,7 +27,7 @@ const App = () => {
       const person = personList.filter((person) => person.name === newName);
       const newPerson = {
          name: newName,
-         phone: newPhone,
+        number: newPhone,
       };
       if (person.length) {
          if (
@@ -41,6 +41,8 @@ const App = () => {
                .updatePerson(person[0].id, newPerson)
                .then((response) => {
                   const updatedPerson = response.data;
+                  console.log("🚀 ~ .then ~ updatedPerson:", updatedPerson)
+                  
                   // update person in persons state variable
                   const updatedPersons = persons.map((person) => {
                      if (person.id === updatedPerson.id) return updatedPerson;
