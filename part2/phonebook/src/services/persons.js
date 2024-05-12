@@ -1,21 +1,21 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "/api/persons";
 
-const getAll = () => axios.get(`${baseUrl}/persons`);
+const getAll = () => axios.get(baseUrl);
 
-const addPerson = (newPerson) => axios.post(`${baseUrl}/persons`, newPerson);
+const addPerson = (newPerson) => axios.post(baseUrl, newPerson);
 
 const deletePerson = (person) => {
    if (window.confirm(`Do you want to delete ${person.name}?`))
-      return axios.delete(`${baseUrl}/persons/${person.id}`);
+      return axios.delete(`baseUrl/${person.id}`);
    return new Promise((resolve, reject) => {
       return reject("user aborted the delete operation");
    });
 };
 
-const updatePerson = (id, newData) => {
-   return axios.put(`${baseUrl}/persons/${id}`, newData);
+const updatePerson = (id, newPerson) => {
+   return axios.put(`baseUrl/${id}`, newPerson);
 };
 
 export default {
