@@ -55,7 +55,7 @@ const App = () => {
                })
                .catch((err) => {
                   setStatus("failure");
-                  setMessage(err);
+                  setMessage(err.response.data.error);
                   setTimeout(() => {
                      setMessage("");
                   }, 3000);
@@ -74,9 +74,8 @@ const App = () => {
                }, 3000);
             })
             .catch((err) => {
-               // throw new Error(err);
                setStatus("failure");
-               setMessage(err);
+               setMessage(err.response.data.error);
                setTimeout(() => {
                   setMessage("");
                }, 3000);
@@ -100,7 +99,11 @@ const App = () => {
             setPersons(updatedPersons);
          })
          .catch((err) => {
-            throw new Error(err);
+            setStatus("failure");
+            setMessage(err.response.data.error);
+            setTimeout(() => {
+               setMessage("");
+            }, 3000);
          });
    };
 
