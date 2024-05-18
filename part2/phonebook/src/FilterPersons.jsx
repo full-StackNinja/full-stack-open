@@ -1,4 +1,6 @@
 const FilterPersons = ({ persons, keyword, deletePerson }) => {
+   console.log("🚀 ~ FilterPersons ~ persons:", persons)
+   
    let filteredPersons = persons.filter((person) => {
       if (keyword) return person.name.includes(keyword);
       return true;

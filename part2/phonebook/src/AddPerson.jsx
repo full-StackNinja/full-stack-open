@@ -12,7 +12,7 @@ const AddPerson = ({
             <input
                value={newName}
                onChange={(e) => setNewName(e.target.value)}
-               required
+               
             />
          </div>
          <div>
@@ -20,7 +20,7 @@ const AddPerson = ({
             <input
                value={newPhone}
                onChange={(e) => setNewPhone(e.target.value)}
-               required
+               
             />
          </div>
          <div>
