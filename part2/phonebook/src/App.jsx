@@ -27,7 +27,7 @@ const App = () => {
       const person = personList.filter((person) => person.name === newName);
       const newPerson = {
          name: newName,
-        number: newPhone,
+         number: newPhone,
       };
       if (person.length) {
          if (
@@ -41,8 +41,6 @@ const App = () => {
                .updatePerson(person[0].id, newPerson)
                .then((response) => {
                   const updatedPerson = response.data;
-                  console.log("🚀 ~ .then ~ updatedPerson:", updatedPerson)
-                  
                   // update person in persons state variable
                   const updatedPersons = persons.map((person) => {
                      if (person.id === updatedPerson.id) return updatedPerson;
@@ -55,11 +53,9 @@ const App = () => {
                      setMessage("");
                   }, 3000);
                })
-               .catch(() => {
+               .catch((err) => {
                   setStatus("failure");
-                  setMessage(
-                     `person ${newPerson.name} has already been deleted`,
-                  );
+                  setMessage(err);
                   setTimeout(() => {
                      setMessage("");
                   }, 3000);
@@ -78,7 +74,12 @@ const App = () => {
                }, 3000);
             })
             .catch((err) => {
-               throw new Error(err);
+               // throw new Error(err);
+               setStatus("failure");
+               setMessage(err);
+               setTimeout(() => {
+                  setMessage("");
+               }, 3000);
             });
       }
 
